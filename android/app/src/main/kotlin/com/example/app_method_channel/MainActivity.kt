@@ -9,6 +9,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 
@@ -38,8 +39,20 @@ class MainActivity: FlutterActivity() {
 
 
     private fun getDeviceModel() : String{
-        val deviceModel: String = Settings.Secure.getString(contentResolver, Settings.Secure.NAME);
-        return deviceModel;
+        val manufacture : String = Build.MANUFACTURER;
+        val deviceModel: String = Build.MODEL;
+        return capitalize(deviceModel)  + " " + manufacture ;
+    }
+
+    private fun capitalize(s: String) : String{
+
+        if (s == null || s.isEmpty()) return "";
+
+        if(s[0].isUpperCase()) return s;
+
+        return s[0].uppercaseChar() + s.substring(1);
+
+
     }
 
     private fun getBatteryLevel(): String {

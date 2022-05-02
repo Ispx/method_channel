@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-class AndroidChannel {
+class PlataformChannel {
   static const _methodChannel =
       MethodChannel('com.example.app_method_channel/device_info');
   String? _deviceModel;
@@ -11,7 +11,7 @@ class AndroidChannel {
     try {
       _deviceModel = await _methodChannel.invokeMethod('device_model');
     } on PlatformException catch (e) {
-      throw e.toString();
+      print(e.toString());
     }
   }
 
@@ -19,7 +19,7 @@ class AndroidChannel {
     try {
       _batteryLevel = await _methodChannel.invokeMethod('battery_level');
     } on PlatformException catch (e) {
-      throw e.toString();
+      print(e.toString());
     }
   }
 }

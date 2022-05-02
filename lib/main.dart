@@ -1,4 +1,4 @@
-import 'package:app_method_channel/methos_channel/android_channel.dart';
+import 'package:app_method_channel/methos_channel/plataform_channel.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,13 +49,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  AndroidChannel androidChannel = AndroidChannel();
+  PlataformChannel plataformChannel = PlataformChannel();
 
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
       try {
-        await androidChannel.getBatteryLevel();
+        await plataformChannel.getBatteryLevel();
+        await plataformChannel.getDeviceModel();
         setState(() {});
       } catch (e) {}
     });
@@ -100,7 +101,17 @@ class _MyHomePageState extends State<MyHomePage> {
               'Nível da bateria',
             ),
             Text(
-              '${androidChannel.batteryLevel}%',
+              '${plataformChannel.batteryLevel}%',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              'Nome do dispositívo',
+            ),
+            Text(
+              '${plataformChannel.deviceModel}',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
